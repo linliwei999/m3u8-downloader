@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>m3u8-downloader</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;1,9..40,400&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+    <main class="shell">
+      <header class="brand">
+        <p class="mark">M3U8 DOWNLOADER</p>
+        <h1>m3u8 下载</h1>
+        <p class="lede">多任务并行 · 暂停续传 · 历史记录</p>
+      </header>
+
+      <form id="form" class="panel" autocomplete="off">
+        <label class="field">
+          <span>m3u8 地址（可多行，每行一个）</span>
+          <textarea
+            id="urls"
+            name="urls"
+            required
+            rows="3"
+            placeholder="https://example.com/a.m3u8&#10;https://example.com/b.m3u8"
+            spellcheck="false"
+          ></textarea>
+        </label>
+
+        <div class="row">
+          <label class="field">
+            <span>文件名（可选）</span>
+            <input id="filename" name="filename" type="text" placeholder="video" />
+          </label>
+          <label class="field">
+            <span>Referer（可选）</span>
+            <input
+              id="referer"
+              name="referer"
+              type="url"
+              placeholder="https://原网页域名/"
+              spellcheck="false"
+            />
+          </label>
+        </div>
+
+        <div class="actions">
+          <button type="submit" id="submit">添加到下载</button>
+          <p class="hint">可同时进行多个任务 · AES-128 · 输出 .ts</p>
+        </div>
+        <p id="formError" class="error" hidden></p>
+      </form>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>进行中</h2>
+          <span id="activeCount" class="count">0</span>
+        </div>
+        <div id="activeList" class="list"></div>
+        <p id="activeEmpty" class="empty">暂无进行中的任务</p>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2>历史记录</h2>
+          <span id="historyCount" class="count">0</span>
+        </div>
+        <div id="historyList" class="list"></div>
+        <p id="historyEmpty" class="empty">暂无历史记录</p>
+      </section>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>
